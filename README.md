@@ -1,6 +1,6 @@
-**AOC 2023 Repo**
+# AOC 2023 Repo
 
-Usage:
+## Usage:
 
 1. Create a cookie.rb file with a constant saved as `COOKIE`.
 2. Copy the cookie value from your AOC account as  a string.
