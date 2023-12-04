@@ -1,10 +1,6 @@
 
 INPUT_FILE_PATH = 'puzzle_inputs/day_2/full_input_day_2.txt'
-RED_LIMIT = 12
-GREEN_LIMIT = 13
-BLUE_LIMIT = 14
 
-COLORS = ['red', 'green', 'blue']
 LIMITS = {
     'red'=> 12,
     'green'=> 13,
@@ -25,7 +21,6 @@ def read_input_file(file_path)
 end
 
 def is_game_possible?(game_sets)
-
     min_red_cubes = 0
     min_green_cubes = 0
     min_blue_cubes = 0
@@ -42,8 +37,6 @@ def is_game_possible?(game_sets)
             min_blue_cubes = number if (color == 'blue' && number > min_blue_cubes)
         end
     end
-    p game_sets
-    p "#{min_red_cubes} red / #{min_green_cubes} green / #{min_blue_cubes} blue"
     [is_game_possible, min_red_cubes * min_green_cubes * min_blue_cubes]
 end
 
