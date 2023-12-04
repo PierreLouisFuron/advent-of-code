@@ -17,7 +17,7 @@ def get_puzzle_input(day)
 end
 
 def create_dir(dir_name)
-  Dir.mkdir(DIR_NAME) unless File.exists?(DIR_NAME)
+  Dir.mkdir(DIR_NAME) unless File.exist?(DIR_NAME)
   Dir.mkdir(dir_name) unless File.exist?(dir_name)
 end
 
@@ -34,7 +34,3 @@ def request_puzzle(day, file_path)
   end
   File.open(file_path, 'w') { |f| f.write(res.body) }
 end
-
-day = ARGV.first
-
-get_puzzle_input(day)
