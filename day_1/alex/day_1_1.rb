@@ -30,11 +30,9 @@ numbers = {
 }
 
 puzzle_input.each do |line|
-  i = 0
   results = []
-  line.length.times do
+  line.length.times do |i|
     test = line[i..-1].scan(/(\d{1}|one|two|three|four|five|six|seven|eight|nine)/)
-    i += 1
     results << test
   end
 
@@ -43,9 +41,7 @@ puzzle_input.each do |line|
   first = results.first[0].first
   last = results.last[-1].first
 
-
   first = numbers[first] if numbers[first]
-
 
   last = numbers[last] if numbers[last]
 
