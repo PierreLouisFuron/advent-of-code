@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puzzle_input = File.read('./puzzle_inputs/day_1/full_input_day_1.txt').lines
 
 PART_1_REGEX = /\d{1}/
