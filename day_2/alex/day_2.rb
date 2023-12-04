@@ -27,7 +27,7 @@ puzzle_input.each do |line|
 end
 
 # answer = 2331
-p possible_game_ids.sum
+p "Part 1 answer: #{possible_game_ids.sum}"
 
 
 # Challenge 2
@@ -48,4 +48,4 @@ puzzle_input.each do |line|
 end
 
 # answer = 71585
-p game_powers.sum
+p "Part 2 answer: #{game_powers.sum}"
