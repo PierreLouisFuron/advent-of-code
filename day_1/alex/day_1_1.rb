@@ -1,4 +1,3 @@
-# puzzle_input = File.read('./puzzle_inputs/day_1/full_input_day_1.txt').split("\n")
 puzzle_input = File.read('./puzzle_inputs/day_1/full_input_day_1.txt').lines
 
 answer = 0
