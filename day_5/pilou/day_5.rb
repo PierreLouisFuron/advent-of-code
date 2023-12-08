@@ -31,7 +31,6 @@ end
 def main(input_file)
   seeds = []
   seeds, seed_to_soil_map, soil_to_fert_map, fert_to_water_map, water_to_light_map, light_to_temp_map, temp_to_hum_map, hum_to_loc_map = File.read(input_file).split("\n\n").map {|x| clean_map(x)}
-
   seeds = seeds.map{ |x| convert_number(x, seed_to_soil_map)}
   seeds = seeds.map{ |x| convert_number(x, soil_to_fert_map)}
   seeds = seeds.map{ |x| convert_number(x, fert_to_water_map)}
@@ -41,12 +40,6 @@ def main(input_file)
   seeds = seeds.map{ |x| convert_number(x, hum_to_loc_map)}
 
   p seeds.min
-
-  
-  # File.readlines(input_file, chomp: true).each_with_index do |line, index|
-    # seeds = get_seeds(line) if index == 0
-
-
 end
 
 # main(INPUT_FILE_PATH_TEST)
