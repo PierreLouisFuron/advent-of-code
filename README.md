@@ -1,4 +1,4 @@
-# AOC 2023 Repo
+# AOC 2023
 
 Ruby repo to quickly pull puzzle inputs and share solutions for [Advent of Code](https://adventofcode.com/).
 
