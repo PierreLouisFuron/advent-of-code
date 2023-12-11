@@ -1,5 +1,7 @@
 # AOC 2023 Repo
 
+Ruby repo to quickly pull puzzle inputs and share solutions for [Advent of Code](https://adventofcode.com/).
+
 ## Usage:
 
 1. Create a cookie.rb file with a constant saved as `COOKIE`.
