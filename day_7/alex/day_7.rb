@@ -100,7 +100,7 @@ total_score = get_answer_part1(puzzle_input)
 if total_score == 246_409_899
   print 'Part 1 tests passed ✅'
 else
-  print 'Part 1 tests failed'
+  print 'Part 1 tests failed ❌'
 end
 
 # Part 2:
