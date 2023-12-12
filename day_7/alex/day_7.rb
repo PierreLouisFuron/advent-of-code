@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 puzzle_input = File.readlines('./puzzle_inputs/day_7/full_input_day_7.txt', chomp: true)
-sample_input = File.readlines('./puzzle_inputs/day_7/sample_input_day_7.txt', chomp: true)
+# sample_input = File.readlines('./puzzle_inputs/day_7/sample_input_day_7.txt', chomp: true)
 
 LETTER_TO_NUMBER_PART_1 = {
   'A' => 14,
@@ -30,10 +30,18 @@ def create_cards_hash(input)
   cards_hash
 end
 
+def create_hands_array(hand, part)
+  if part == 2
+    # NOTE: ignore jokers for now and handle them after
+    hand.split('').reject { |card| card == JOKER_VALUE }
+  else
+    hand.split('')
+  end
+end
+
 def add_pair_counts(cards_hash, part)
   cards_hash.each do |hand, bid|
-    hand_array = hand.split('')
-    hand_array = hand_array.reject { |card| card == 'J' } if part == 2
+    hand_array = create_hands_array(hand, part)
     pairs = {}
     hand_array.map { |card| pairs[card] = hand.count(card) }
     pairs.each_key { |card| pairs.delete(card) if pairs[card] < 2 }
@@ -47,12 +55,16 @@ def add_hand_as_integer(cards_hash, letter_to_number_map)
   end
 end
 
+def select_by_value(cards_hash, pair_value)
+  cards_hash.select { |_key, value| value[1] == pair_value }
+end
+
 def split_hands(cards_hash)
   [
-    cards_hash.select { |_key, value| value[1] == [] }, cards_hash.select { |_key, value| value[1] == [2] },
-    cards_hash.select { |_key, value| value[1] == [2, 2] }, cards_hash.select { |_key, value| value[1] == [3] },
-    cards_hash.select { |_key, value| value[1] == [2, 3] }, cards_hash.select { |_key, value| value[1] == [4] },
-    cards_hash.select { |_key, value| value[1] == [5] }
+    select_by_value(cards_hash, []), select_by_value(cards_hash, [2]),
+    select_by_value(cards_hash, [2, 2]), select_by_value(cards_hash, [3]),
+    select_by_value(cards_hash, [2, 3]), select_by_value(cards_hash, [4]),
+    select_by_value(cards_hash, [5])
   ]
 end
 
