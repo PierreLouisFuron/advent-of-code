@@ -25,7 +25,7 @@ def create_cards_hash(input)
   cards_hash = {}
   input.each do |line|
     hand, bid = line.split(' ')
-    cards_hash[hand] = bid
+    cards_hash[hand] = { 'bid' => bid.to_i }
   end
   cards_hash
 end
@@ -45,18 +45,20 @@ def add_pair_counts(cards_hash, part)
     pairs = {}
     hand_array.map { |card| pairs[card] = hand.count(card) }
     pairs.each_key { |card| pairs.delete(card) if pairs[card] < 2 }
-    cards_hash[hand] = [bid, pairs.values.sort]
+    cards_hash[hand] = bid.merge({ 'hand_value' => pairs.values.sort })
   end
 end
 
 def add_hand_as_integer(cards_hash, letter_to_number_map)
   cards_hash.each do |key, value|
-    cards_hash[key] = value + [key.split('').map { |card| letter_to_number_map[card] || card }.map(&:to_i)]
+    cards_hash[key] = value.merge({ 'hand_as_integers' => [key.split('').map do |card|
+                                                             letter_to_number_map[card] || card
+                                                           end.map(&:to_i)] })
   end
 end
 
 def select_by_value(cards_hash, pair_value)
-  cards_hash.select { |_key, value| value[1] == pair_value }
+  cards_hash.select { |_key, value| value['hand_value'] == pair_value }
 end
 
 def split_hands(cards_hash)
@@ -71,15 +73,15 @@ end
 def sort_split_hands(split_hands)
   split_hands = split_hands.reject(&:empty?)
   split_hands.map do |grouped_hands|
-    grouped_hands.sort_by { |_key, value| value[2] }
+    grouped_hands.sort_by { |_key, value| value['hand_as_integers'] }
   end
 end
 
 def get_total_score(sorted_hands_array)
   score = 0
   multiplier = 1
-  sorted_hands_array.each do |hand|
-    score += (hand.last.first.to_i * multiplier)
+  sorted_hands_array.each do |_key, value|
+    score += (value['bid'] * multiplier)
     multiplier += 1
   end
   score
@@ -110,9 +112,9 @@ def handle_jokers(cards_hash)
     next unless hand.include?(JOKER_VALUE)
 
     joker_count = hand.count(JOKER_VALUE)
-    existing_pair_value = values[1]
+    existing_pair_value = values['hand_value']
 
-    values[1] = get_new_hand_score(existing_pair_value, joker_count)
+    values['hand_value'] = get_new_hand_score(existing_pair_value, joker_count)
   end
 end
 
