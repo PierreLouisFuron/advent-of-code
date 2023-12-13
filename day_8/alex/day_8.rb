@@ -3,10 +3,10 @@
 puzzle_input = File.readlines('./puzzle_inputs/day_8/full_input_day_8.txt', chomp: true)
 # sample_input = File.readlines('./puzzle_inputs/day_8/sample_input_day_8.txt', chomp: true)
 # sample_input2 = File.readlines('./puzzle_inputs/day_8/sample_input_day_8_2.txt', chomp: true)
-sample_input_part_2 = File.readlines('./puzzle_inputs/day_8/sample_input_day_8_part_2.txt', chomp: true)
+# sample_input_part_2 = File.readlines('./puzzle_inputs/day_8/sample_input_day_8_part_2.txt', chomp: true)
 
 def get_instructions(input)
-  input.first.split('') * 100_000 # hardcoded messy
+  input.first.split('') * 100 # hardcoded messy
 end
 
 def get_map(input)
