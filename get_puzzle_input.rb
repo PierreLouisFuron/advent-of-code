@@ -2,11 +2,11 @@
 
 require 'uri'
 require 'net/http'
-require './cookie'
+require './env'
 
-DIR_PATH = './puzzle_inputs/day_'
-DIR_NAME = 'puzzle_inputs'
-AOC_URL_2023 = 'https://adventofcode.com/2023'
+DIR_PATH = "./#{CURRENT_YEAR}/puzzle_inputs/day_".freeze
+DIR_NAME = "#{CURRENT_YEAR}/puzzle_inputs".freeze
+AOC_URL = "https://adventofcode.com/#{CURRENT_YEAR}".freeze
 
 def get_puzzle_input(day)
   dir_name = "#{DIR_PATH}#{day}"
@@ -26,9 +26,9 @@ def request_puzzle(day, file_path)
 
   # e.g. https://adventofcode.com/2023/day/1/input
 
-  uri = URI("#{AOC_URL_2023}/day/#{day}/input")
+  uri = URI("#{AOC_URL}/day/#{day}/input")
   req = Net::HTTP::Get.new(uri)
-  req['cookie'] = COOKIE
+  req['cookie'] = SESSION_COOKIE
   res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
     http.request(req)
   end
