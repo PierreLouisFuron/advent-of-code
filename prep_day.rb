@@ -5,7 +5,7 @@ day = ARGV.first
 user = ARGV.last
 
 # grab + save puzzle input
-get_puzzle_input(day)
+get_puzzle_inputs(day)
 
 # create folder for day
 dir_name = "#{CURRENT_YEAR}/day_#{day}"
@@ -17,7 +17,9 @@ Dir.mkdir("#{dir_name}/#{user}") unless File.exist?("#{dir_name}/#{user}")
 starting_string = <<~BOILERPLATE
   # frozen_string_literal: true
 
-  puzzle_input = File.readlines('./#{CURRENT_YEAR}/puzzle_inputs/day_#{day}/full_input_day_#{day}.txt', chomp: true)
+  puzzle_input = File.readlines('./#{CURRENT_YEAR}/puzzle_inputs/day_#{day}/full_input_day_#{day}_test.txt', chomp: true)
+  # puzzle_input = File.readlines('./#{CURRENT_YEAR}/puzzle_inputs/day_#{day}/full_input_day_#{day}.txt', chomp: true)
+
   puzzle_input.each do |line|
     p line
   end
