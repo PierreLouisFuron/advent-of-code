@@ -36,7 +36,6 @@ while removable_rolls.count > 0
   removable_rolls = get_removable_rolls(grid)
   total += removable_rolls.count
 
-
   removable_rolls.each do |roll|
     grid[roll[1]][roll[0]] = '.'
   end
