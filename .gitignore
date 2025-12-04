@@ -1,4 +1,5 @@
 /cookie.rb
 puzzle_inputs/
 */.DS_Store
+.DS_Store
 env.rb
