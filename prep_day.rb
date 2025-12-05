@@ -26,3 +26,6 @@ starting_string = <<~BOILERPLATE
 BOILERPLATE
 
 File.open("#{dir_name}/#{user}/day_#{day}.rb", 'w') { |f| f.write(starting_string) }
+
+# download puzzle description
+scrap_puzzle_description(day, "#{dir_name}/puzzle.md")

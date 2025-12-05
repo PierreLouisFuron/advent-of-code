@@ -39,13 +39,57 @@ end
 def scrap_test_input(day, file_path)
   return if File.exist?(file_path)
 
-  uri = URI("#{AOC_URL}/day/#{day}")
-  res = fetch_page(uri)
-
-  doc = Nokogiri::HTML(res.body)
+  doc = fetch_puzzle_page(day)
   code_block = doc.at_css('pre code')
 
   File.open(file_path, 'w') { |f| f.write(code_block.text) } if code_block
+end
+
+def fetch_puzzle_page(day)
+  uri = URI("#{AOC_URL}/day/#{day}")
+  res = fetch_page(uri)
+  Nokogiri::HTML(res.body)
+end
+
+def scrap_puzzle_description(day, file_path)
+  return if File.exist?(file_path)
+
+  doc = fetch_puzzle_page(day)
+  articles = doc.css('article.day-desc')
+
+  markdown = articles.map { |article| html_to_markdown(article) }.join("\n\n---\n\n")
+  File.open(file_path, 'w') { |f| f.write(markdown) }
+end
+
+def html_to_markdown(element)
+  element.children.filter_map { |node| node_to_markdown(node) }.join("\n")
+end
+
+def node_to_markdown(node)
+  case node.name
+  when 'h2' then "## #{node.text.gsub(/---/, '').strip}\n"
+  when 'p' then "#{parse_inline(node)}\n"
+  when 'pre' then "```\n#{node.text}```\n"
+  when 'ul' then list_to_markdown(node)
+  when 'text' then node.text unless node.text.strip.empty?
+  end
+end
+
+def list_to_markdown(node)
+  "#{node.css('li').map { |li| "- #{parse_inline(li)}" }.join("\n")}\n"
+end
+
+def parse_inline(node)
+  node.children.map do |child|
+    case child.name
+    when 'text' then child.text
+    when 'em' then "*#{child.text}*"
+    when 'code' then "`#{child.text}`"
+    when 'a' then "[#{child.text}](#{child['href']})"
+    when 'strong' then "**#{child.text}**"
+    else child.text
+    end
+  end.join
 end
 
 def fetch_page(uri)
