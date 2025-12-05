@@ -51,7 +51,7 @@ def fetch_puzzle_page(day)
   Nokogiri::HTML(res.body)
 end
 
-def scrap_puzzle_description(day, file_path)
+def scrape_puzzle_description(day, file_path)
   doc = fetch_puzzle_page(day)
   articles = doc.css('article.day-desc')
 
