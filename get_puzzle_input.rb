@@ -52,8 +52,6 @@ def fetch_puzzle_page(day)
 end
 
 def scrap_puzzle_description(day, file_path)
-  return if File.exist?(file_path)
-
   doc = fetch_puzzle_page(day)
   articles = doc.css('article.day-desc')
 
