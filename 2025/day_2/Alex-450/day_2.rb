@@ -3,7 +3,6 @@
 # puzzle_input = File.readlines('./2025/puzzle_inputs/day_2/full_input_day_2_test.txt', chomp: true)
 puzzle_input = File.readlines('./2025/puzzle_inputs/day_2/full_input_day_2.txt', chomp: true)
 
-
 def get_full_range(range)
   start_val = range.split('-')[0].to_i
   end_val = range.split('-')[1].to_i
@@ -12,8 +11,8 @@ end
 
 def duplicated_id?(id)
   id = id.to_s
-
-  halves = [id[0...id.length/2], id[id.length/2..]]
+  half_length = id.length / 2
+  halves = [id[0...half_length], id[half_length..]]
 
   halves[0] == halves[1]
 end
@@ -27,9 +26,7 @@ puzzle_input.each do |line|
     full_range = get_full_range(range)
 
     full_range.each do |id|
-      if duplicated_id?(id)
-        invalid_ids += id
-      end
+      invalid_ids += id if duplicated_id?(id)
     end
   end
 end
@@ -38,10 +35,9 @@ puts "part 1: #{invalid_ids}"
 
 # part 2
 # answer = 28858486244
-
 def split_number(num, parts)
   part_size = num.length / parts
-  num.chars.each_slice(part_size).map { |chars| chars.join }
+  num.chars.each_slice(part_size).map(&:join)
 end
 
 def id_repeats?(id)
@@ -53,6 +49,7 @@ def id_repeats?(id)
 end
 
 invalid_ids = 0
+
 puzzle_input.each do |line|
   ranges = line.split(',')
   ranges.each do |range|
