@@ -15,9 +15,7 @@ def duplicated_id?(id)
 
   halves = [id[0...id.length/2], id[id.length/2..]]
 
-  if halves[0] == halves[1] then return true end;
-
-  false
+  halves[0] == halves[1]
 end
 
 # part 1
