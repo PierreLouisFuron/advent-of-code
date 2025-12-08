@@ -10,7 +10,7 @@ Ruby repo to quickly pull puzzle inputs and share solutions for [Advent of Code]
     3. Your `USERNAME`
 2. Copy the session cookie value from your AOC account as a string.
 `SESSION_COOKIE = 'session=XXXXXXXX'`
-3. Run `ruby prep_day.rb [DAY]` (Set the day + username yourself) to generate :
+3. Run `ruby prep_day.rb [DAY]` (Set the day yourself) to generate :
     - the daily puzzle description
     - the test input
     - your puzzle input
