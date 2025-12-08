@@ -2,6 +2,7 @@
 
 require 'uri'
 require 'net/http'
+require 'openssl'
 require './env'
 
 require 'nokogiri'
@@ -91,9 +92,11 @@ def parse_inline(node)
 end
 
 def fetch_page(uri)
+  http = Net::HTTP.new(uri.hostname, uri.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
   req = Net::HTTP::Get.new(uri)
   req['cookie'] = SESSION_COOKIE
-  Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
-    http.request(req)
-  end
+  http.request(req)
 end
