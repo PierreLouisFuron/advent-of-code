@@ -2,7 +2,6 @@ require './get_puzzle_input'
 require './env'
 
 day = ARGV.first
-user = ARGV.last
 
 # grab + save puzzle input
 get_puzzle_inputs(day)
@@ -11,7 +10,7 @@ get_puzzle_inputs(day)
 dir_name = "#{CURRENT_YEAR}/day_#{day}"
 Dir.mkdir(dir_name) unless File.exist?(dir_name)
 
-Dir.mkdir("#{dir_name}/#{user}") unless File.exist?("#{dir_name}/#{user}")
+Dir.mkdir("#{dir_name}/#{USERNAME}") unless File.exist?("#{dir_name}/#{USERNAME}")
 
 # create rb file
 starting_string = <<~BOILERPLATE
@@ -25,7 +24,7 @@ starting_string = <<~BOILERPLATE
   end
 BOILERPLATE
 
-File.open("#{dir_name}/#{user}/day_#{day}.rb", 'w') { |f| f.write(starting_string) }
+File.open("#{dir_name}/#{USERNAME}/day_#{day}.rb", 'w') { |f| f.write(starting_string) }
 
 # download puzzle description
 scrape_puzzle_description(day, "#{dir_name}/puzzle.md")

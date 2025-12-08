@@ -4,12 +4,13 @@ Ruby repo to quickly pull puzzle inputs and share solutions for [Advent of Code]
 
 ## Usage:
 
-1. Create a `env.rb` file and set two values : 
-    1. a CURRENT_YEAR constant (like `CURRENT_YEAR=2024`)
-    2. a `SESSION_COOKIE` constant
+1. Create a `env.rb` file and set following values : 
+    1. CURRENT_YEAR constant (like `CURRENT_YEAR=2024`)
+    2. `SESSION_COOKIE` constant
+    3. Your `USERNAME`
 2. Copy the session cookie value from your AOC account as a string.
 `SESSION_COOKIE = 'session=XXXXXXXX'`
-3. Run `ruby prep_day.rb [DAY] [USERNAME]` (Set the day + username yourself) to generate :
+3. Run `ruby prep_day.rb [DAY]` (Set the day + username yourself) to generate :
     - the daily puzzle description
     - the test input
     - your puzzle input

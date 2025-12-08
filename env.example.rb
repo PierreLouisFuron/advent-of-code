@@ -1,2 +1,3 @@
 CURRENT_YEAR = 2024
+USERNAME = 'Sherlock'
 SESSION_COOKIE = 'session=XXXXXX'
