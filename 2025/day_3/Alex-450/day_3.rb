@@ -25,7 +25,7 @@ end
 max_joltage = 0
 
 puzzle_input.each do |line|
-  line_array = line.split('').map(&:to_i)
+  line_array = line.chars.map(&:to_i)
   largest_number = get_largest_number(line_array, 2)
 
   max_joltage += largest_number
@@ -40,7 +40,7 @@ puts "part 1: #{max_joltage}"
 max_joltage = 0
 
 puzzle_input.each do |line|
-  line_array = line.split('').map(&:to_i)
+  line_array = line.chars.map(&:to_i)
 
   largest_number = get_largest_number(line_array, 12)
   max_joltage += largest_number
