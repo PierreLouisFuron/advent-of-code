@@ -34,25 +34,29 @@ def find_adjacent_points(point_index, line, line_index, puzzle_input)
   adjacent_points
 end
 
-def check_adjacent_points(adjacent_points, max_number)
-  true if adjacent_points.count('@') < max_number
+def accessible_roll?(adjacent_points, max_number)
+  adjacent_points.count('@') < max_number
+end
+
+def count_accessible_rolls(puzzle_input, recursive)
+  accessible_rolls = 0
+  puzzle_input.each_with_index do |line, line_index|
+    line.chars.each_with_index do |point, point_index|
+      next unless point == '@'
+
+      adjacent_points = find_adjacent_points(point_index, line, line_index, puzzle_input)
+      accessible_roll = accessible_roll?(adjacent_points, 4)
+
+      accessible_rolls += 1 if accessible_roll
+      line[point_index] = 'x' if recursive && accessible_roll
+    end
+  end
+  [accessible_rolls, puzzle_input]
 end
 
 # part 1
 # answer: 1349
-accessible_rolls = 0
-puzzle_input.each_with_index do |line, line_index|
-  line.chars.each_with_index do |point, point_index|
-    next unless point == '@'
-
-    adjacent_points = find_adjacent_points(point_index, line, line_index, puzzle_input)
-
-    valid_point = check_adjacent_points(adjacent_points, 4)
-
-    accessible_rolls += 1 if valid_point
-  end
-end
-
+accessible_rolls = count_accessible_rolls(puzzle_input, false).first
 puts accessible_rolls
 
 # part 2
@@ -60,25 +64,10 @@ puts accessible_rolls
 total_removed = 0
 
 loop do
-  removed_rolls = 0
+  accessible_rolls, puzzle_input = count_accessible_rolls(puzzle_input, true)
 
-  puzzle_input.each_with_index do |line, line_index|
-    line.chars.each_with_index do |point, point_index|
-      next unless point == '@'
-
-      adjacent_points = find_adjacent_points(point_index, line, line_index, puzzle_input)
-
-      valid_point = check_adjacent_points(adjacent_points, 4)
-
-      if valid_point
-        removed_rolls += 1
-        line[point_index] = 'x'
-      end
-    end
-  end
-
-  total_removed += removed_rolls
-  break if removed_rolls.zero?
+  total_removed += accessible_rolls
+  break if accessible_rolls.zero?
 end
 
 puts total_removed
