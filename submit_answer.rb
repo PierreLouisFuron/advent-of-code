@@ -53,22 +53,18 @@ def parse_response(body)
   return 'Could not parse response' unless article
 
   text = article.text.strip
-  # p article.text.strip
 
   if text.include?("That's the right answer")
-    "\e[32m✓ Correct!\e[0m #{text[/You got rank \d+/]}"
+    "\e[32m✓ #{text.split('  ').first}\e[0m \n#{text.split('  ')[1..].join.capitalize.sub(/\s*\[.*?\]\s*$/,
+                                                                                          '').strip.capitalize}"
   elsif text.include?("That's not the right answer")
-    "\e[31m✗ #{text.split(';').first}.\e[0m \n#{text.split(';')[1..].join.capitalize.sub(/\[return to day \d+\]/i,
+    "\e[31m✗ #{text.split(';').first}.\e[0m \n#{text.split(';')[1..].join.capitalize.sub(/\s*\[.*?\]\s*$/,
                                                                                          '').strip.capitalize}"
   elsif text.include?('You gave an answer too recently')
-    # wait_time = text[/You have (.+?) left to wait/, 1]
-    "\e[33m⏳ #{text.split(';').first}.\e[0m \n#{text.split(';')[1..].join.sub(/\[return to day \d+\]/i,
-                                                                               '').strip.capitalize}"
-  # elsif text.include?('You gave an answer too recently')
-  #   wait_time = text[/You have (.+?) left to wait/, 1]
-  #   "\e[33m⏳ Rate limited. Wait #{wait_time}.\e[0m"
+    "\e[33m⏳ #{text.split(';').first}.\e[0m \n#{text.split(';')[1..].join.sub(/\s*\[.*?\]\s*$/, '').strip.capitalize}"
   elsif text.include?("You don't seem to be solving the right level")
-    "\e[33m⚠ #{text}\e[0m"
+    "\e[33m✓ #{text.split('  ').first}\e[0m \n#{text.split('  ')[1..].join.capitalize.sub(/\s*\[.*?\]\s*$/,
+                                                                                          '').strip.capitalize}"
   else
     text
   end
