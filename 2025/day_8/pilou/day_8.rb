@@ -65,13 +65,15 @@ all_distances.sort_by!(&:first)
 circuits = {}
 connection_attempts = 0
 next_circuit_id = 0
+last_linked_boxes = []
 all_distances.each do |distance, box1, box2|
   limit = is_test_mode_enabled ? 10 : 1000
-  break unless connection_attempts < limit
+  break unless connection_attempts < 10_000
 
   connection_attempts += 1
   next if boxes_in_same_circuits?([box1, box2])
 
+  # last_linked_boxes = [box1, box2]
   if box1.circuit_id.nil? && box2.circuit_id.nil? # both are not in circuits
     box1.circuit_id = next_circuit_id
     box2.circuit_id = next_circuit_id
@@ -85,16 +87,22 @@ all_distances.each do |distance, box1, box2|
   else # both are in different circuits
     circuits = merge_box_circuits(circuits, [box1, box2])
   end
+  last_linked_boxes = [box1, box2] if circuits.first[1].count == boxes.count && last_linked_boxes == []
 end
 
-circuits_sizes = []
-circuits.each do |id, circuit|
-  circuits_sizes << circuit.length
-end
+# part 2
+p last_linked_boxes[0].x * last_linked_boxes[1].x
 
-total = 1
-3.times do
-  total *= circuits_sizes.delete_at(circuits_sizes.index(circuits_sizes.max))
-end
+# part 1
 
-p total
+# circuits_sizes = []
+# circuits.each do |id, circuit|
+#   circuits_sizes << circuit.length
+# end
+
+# total = 1
+# 3.times do
+#   total *= circuits_sizes.delete_at(circuits_sizes.index(circuits_sizes.max))
+# end
+
+# p total
